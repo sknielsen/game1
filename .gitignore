@@ -1,0 +1,9 @@
+# Python
+*.pyc
+
+# Unit test / coverage
+.cache/
+.coverage
+
+# Vim
+*.sw?
