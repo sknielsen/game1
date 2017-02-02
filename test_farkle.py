@@ -1,9 +1,9 @@
 import unittest
-from farkle import dice
+from farkle import Die
 
 class TestFarkle(unittest.TestCase):
     def test_die_init(self):
-        die1 = dice(1)
+        die1 = Die(1)
         self.assertEqual(die1.number, 1)
         self.assertEqual(die1.sides, 6)
 
