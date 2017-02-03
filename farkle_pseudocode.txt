@@ -1,11 +1,13 @@
-Game will start by asking how many players, that raw input will be stored in a variable for number of players. 
+Game will start by printing instructions for the game, initializing six dice and asking how many players. That input will be stored in a variable for number of players. 
 
-For each turn six dice will be initialted. Dice will be a class that has methods roll and keep. Player gets to decide which dice he wants to keep and which to roll again. 
-Player will be asked if he/she would like to continue to roll or end their turn.
+For each player's turn the dice will be rolled. Dice will be a class that has methods roll, freeze and unfreeze. Player gets to decide which dice he wants to keep and which to roll again. 
 
-Upon ending their turn their total will be calculated and added to their score. 
+If he can't keep any dice then he farkles and his turn is over and it moves to next player.
+
+If the player does keep dice, they will be asked if they would like to continue to roll or end their turn.
+When Player wants to stop rolling their turn is over and their score is calculated and added to their total, and it moves to next player.
 
 Does user input their own total or does computer add it up for them?
 
-First player to reach a score of 10,000 points wins. 
+First player to reach a score of 10,000 points or above wins. 
 
