@@ -96,6 +96,7 @@ def unfreeze_dice():
 def rolling():
     saved_dice_numbers = []
     while True:
+        os.system('clear')
         dice_roll(saved_dice_numbers)
         kept_dice = raw_input("Which number dice would you like to keep? (ie '1 3 4' or 'none') ")
         if kept_dice.lower() == 'none':
@@ -122,7 +123,10 @@ def player_turn(players):
         for player in players:
             os.system('clear')
             unfreeze_dice()
-            print("It is player number %i's turn!") % (player)
+            try:
+                input = raw_input("It is player number %i's turn! Hit any key to roll! " % (player))
+            except:
+                pass
             rolling()
             turn_score = int(raw_input('What was your score for this turn? '))
             scores[player] += turn_score
