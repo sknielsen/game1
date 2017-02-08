@@ -1,4 +1,5 @@
 import random
+import os
 
 class Die(object):
 
@@ -74,7 +75,9 @@ die6 = Die(6)
 rolling_dice = [die1, die2, die3, die4, die5, die6]
 
 def begin_game():
-    players = int(raw_input('Hello and welcome to Farkle! How many players are there? '))
+    os.system('clear')
+    players = int(raw_input("""
+                          Hello and welcome to Farkle! How many players are there? """))
     players = range(1, (players + 1))
     return players
 
@@ -90,33 +93,42 @@ def unfreeze_dice():
     for die in rolling_dice:
         die.unfreeze()
 
+def rolling():
+    saved_dice_numbers = []
+    while True:
+        dice_roll(saved_dice_numbers)
+        kept_dice = raw_input("Which number dice would you like to keep? (ie '1 3 4' or 'none') ")
+        if kept_dice.lower() == 'none':
+            print('FARKLE!')
+            return
+        else:
+            saved_dice_numbers.extend(map(int, kept_dice.split()))
+            if saved_dice_numbers == [1, 2, 3, 4, 5, 6]:
+                unfreeze_dice()
+                saved_dice_number = []
+            else:
+                for die_number in saved_dice_numbers:
+                    rolling_dice[die_number - 1].freeze()
+            roll_again_answer = raw_input("would you like to continue rolling? [y/n] ")
+            if roll_again_answer.lower() == 'n':
+                return
+
 def player_turn(players):
     still_playing = True
+    scores = {}
+    for player in players:
+        scores[player] = 0
     while still_playing:
         for player in players:
+            os.system('clear')
             unfreeze_dice()
-            saved_dice_numbers = []
-            rolling = True
             print("It is player number %i's turn!") % (player)
-            while rolling:
-                dice_roll(saved_dice_numbers)
-                kept_dice = raw_input("Which number dice would you like to keep? (ie '1 3 4' or 'none') ")
-                if kept_dice.lower() == 'none':
-                    print('FARKLE!')
-                    rolling = False
-                else:
-                    saved_dice_numbers.extend(map(int, kept_dice.split()))
-                    if saved_dice_numbers == [1, 2, 3, 4, 5, 6]:
-                        unfreeze_dice()
-                        saved_dice_number = []
-                    else:
-                        for die_number in saved_dice_numbers:
-                            rolling_dice[die_number - 1].freeze()
-                    roll_again_answer = raw_input("would you like to continue rolling? [y/n] ")
-                    if roll_again_answer.lower() == 'n':
-                        rolling = False
-
-
+            rolling()
+            turn_score = int(raw_input('What was your score for this turn? '))
+            scores[player] += turn_score
+            if scores[player] >= 10000:
+                still_playing = False
+                print 'Player number %i wins!!!' % (player)
 
 def main():
     player_turn(begin_game())
