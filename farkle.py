@@ -84,7 +84,17 @@ def begin_game():
     os.system('clear')
     players = int(raw_input("""
         Hello and welcome to Farkle! 
-        The goal of this game is to reach 10,000 points. The scoring is as follows:
+        The goal of this game is to reach 10,000 points. 
+
+        Players take turns rolling all six dice. After each roll you take out any dice 
+        worth points that you would like to keep, and set those aside. At least one die must 
+        be kept from each roll. You then continue to roll the remaining dice. If all six dice
+        have be set aside, then you can pick up all six again and continue rolling, adding
+        to your score. A turn is over when a player either decides to stop rolling or if 
+        they do not get any dice worth points in a roll. This is called FARKLE, and you 
+        lose all the points for that turn. Play then continues to the next player, 
+        and on until someone reaches 10,000 points.
+        The scoring for the dice is as follows:
 
                  5's = 50 point
                  1's = 100 points
@@ -102,23 +112,12 @@ def begin_game():
                  Four of a Kind + a Pair = 1,500
                  Two sets of Three of a Kind = 2,500
 
-         Players take turns rolling all six dice. Take out any dice worth points
-         after each roll. This forms your running score for the round. Roll the
-         remaining dice, removing any dice worth points and adding them to your
-         running total. If you are ever able to set aside all six dice, you may
-         re-roll all of your dice and keep building your running total. If ever you
-         are unable to set aside any dice (no dice are worth points), you have
-         Farkled. You lose your running point total and your turn is over.You continue
-         rolling until you either Pass or Farkle. Then the next player rolls the six dice.
-         Play continues until it is your turn again.
-
          Now let's play! How many players are there? """))
     # Sets list with name players with numbers 1 to players
     players = range(1, (players + 1))
     return players
 
 def dice_roll(saved_dice_numbers):
-    print saved_dice_numbers
     # Rolls and prints dice or just prints dice of they are frozen
     for die in rolling_dice:
         if die.number in saved_dice_numbers:
