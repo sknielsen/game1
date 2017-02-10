@@ -2,6 +2,7 @@ import random
 import os
 
 class Die(object):
+    # Creates die class with roll, freeze and unfreeze methods
 
     def __init__(self, number, sides=6):
         self.number = number
@@ -52,9 +53,11 @@ class Die(object):
            \/_______/           """}
 
     def roll(self):
+        # Assignes die random number from 1 to 6
         self.value = random.randint(1, self.sides)
 
     def freeze(self):
+        # Freezes die so it won't roll
         self._frozen = True
 
     def unfreeze(self):
@@ -66,15 +69,18 @@ class Die(object):
         else:
             return self._value_to_str[self.value] % self.number
 
+# Initialize six dice
 die1 = Die(1)
 die2 = Die(2)
 die3 = Die(3)
 die4 = Die(4)
 die5 = Die(5)
 die6 = Die(6)
+# List of the dice
 rolling_dice = [die1, die2, die3, die4, die5, die6]
 
 def begin_game():
+    # Clearns the screen and prints welcome message and prompts for number of users
     os.system('clear')
     players = int(raw_input("""
                           Hello and welcome to Farkle! How many players are there? """))
@@ -82,6 +88,7 @@ def begin_game():
     return players
 
 def dice_roll(saved_dice_numbers):
+    # Rolls and prints dice or just prints dice of they are frozen
     for die in rolling_dice:
         if die.number in saved_dice_numbers:
             print(die)
@@ -90,10 +97,12 @@ def dice_roll(saved_dice_numbers):
             print(die)
 
 def unfreeze_dice():
+    # unfreezes all dice
     for die in rolling_dice:
         die.unfreeze()
 
 def rolling():
+    # Continues rolling dice as long as player wants to keep rolling and asks which dice to freeze
     saved_dice_numbers = []
     while True:
         os.system('clear')
@@ -115,6 +124,7 @@ def rolling():
                 return
 
 def player_turn(players):
+    # Cycles through each player and prompts them for their score at the end of each turn
     still_playing = True
     scores = {}
     for player in players:
