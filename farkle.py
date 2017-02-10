@@ -80,10 +80,40 @@ die6 = Die(6)
 rolling_dice = [die1, die2, die3, die4, die5, die6]
 
 def begin_game():
-    # Clearns the screen and prints welcome message and prompts for number of users
+    # Clears the screen and prints welcome message and prompts for number of users
     os.system('clear')
     players = int(raw_input("""
-                          Hello and welcome to Farkle! How many players are there? """))
+        Hello and welcome to Farkle! 
+        The goal of this game is to reach 10,000 points. The scoring is as follows:
+
+                 5's = 50 point
+                 1's = 100 points
+                 1,1,1 = 300 points
+                 2,2,2 = 200 points
+                 3,3,3 = 300 points
+                 4,4,4 = 400 points
+                 5,5,5 = 500 points
+                 6,6,6 = 600 points
+                 Four of a Kind = 1,000 points
+                 Five of a Kind = 2,000 points
+                 Six of a Kind = 3,000 points
+                 A Straight of 1-6 = 1,500 points
+                 Three Pairs = 1,500 points
+                 Four of a Kind + a Pair = 1,500
+                 Two sets of Three of a Kind = 2,500
+
+         Players take turns rolling all six dice. Take out any dice worth points
+         after each roll. This forms your running score for the round. Roll the
+         remaining dice, removing any dice worth points and adding them to your
+         running total. If you are ever able to set aside all six dice, you may
+         re-roll all of your dice and keep building your running total. If ever you
+         are unable to set aside any dice (no dice are worth points), you have
+         Farkled. You lose your running point total and your turn is over.You continue
+         rolling until you either Pass or Farkle. Then the next player rolls the six dice.
+         Play continues until it is your turn again.
+
+         Now let's play! How many players are there? """))
+    # Sets list with name players with numbers 1 to players
     players = range(1, (players + 1))
     return players
 
@@ -112,7 +142,9 @@ def rolling():
             print('FARKLE!')
             return
         else:
+            # Adds the numbers of the dice the player chose to keep to the list saved_dice_numbers
             saved_dice_numbers.extend(map(int, kept_dice.split()))
+            # If all the dice are saved then they all unfreeze
             if saved_dice_numbers == [1, 2, 3, 4, 5, 6]:
                 unfreeze_dice()
                 saved_dice_number = []
@@ -126,7 +158,9 @@ def rolling():
 def player_turn(players):
     # Cycles through each player and prompts them for their score at the end of each turn
     still_playing = True
+    # Initiate empty dictionary called scores to keep players scores in
     scores = {}
+    # Initialize scores to 0 for each player
     for player in players:
         scores[player] = 0
     while still_playing:
@@ -139,7 +173,9 @@ def player_turn(players):
                 pass
             rolling()
             turn_score = int(raw_input('What was your score for this turn? '))
+            # Adds players score from that round to running total
             scores[player] += turn_score
+            # Game ends if a player reachs 10000 points
             if scores[player] >= 10000:
                 still_playing = False
                 print 'Player number %i wins!!!' % (player)
