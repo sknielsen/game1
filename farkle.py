@@ -118,6 +118,7 @@ def begin_game():
     return players
 
 def dice_roll(saved_dice_numbers):
+    print saved_dice_numbers
     # Rolls and prints dice or just prints dice of they are frozen
     for die in rolling_dice:
         if die.number in saved_dice_numbers:
@@ -137,17 +138,23 @@ def rolling():
     while True:
         os.system('clear')
         dice_roll(saved_dice_numbers)
-        kept_dice = raw_input("Which number dice would you like to keep? (ie '1 3 4' or 'none') ")
+        kept_dice = raw_input("Which number dice would you like to keep? (ie '1 3 4', 'all' or 'none') ")
         if kept_dice.lower() == 'none':
             print('FARKLE!')
             return
+        elif kept_dice.lower() == 'all':
+            unfreeze_dice()
+            saved_dice_numbers = []
+            roll_again_answer = raw_input("would you like to continue rolling? [y/n] ")
+            if roll_again_answer.lower() == 'n':
+                return
         else:
             # Adds the numbers of the dice the player chose to keep to the list saved_dice_numbers
             saved_dice_numbers.extend(map(int, kept_dice.split()))
             # If all the dice are saved then they all unfreeze
-            if saved_dice_numbers == [1, 2, 3, 4, 5, 6]:
+            if sorted(saved_dice_numbers) == [1, 2, 3, 4, 5, 6]:
                 unfreeze_dice()
-                saved_dice_number = []
+                saved_dice_numbers = []
             else:
                 for die_number in saved_dice_numbers:
                     rolling_dice[die_number - 1].freeze()
