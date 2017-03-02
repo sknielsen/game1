@@ -121,7 +121,7 @@ def begin_game():
     return players
 
 def dice_roll(saved_dice_numbers):
-    # Rolls and prints dice or just prints dice of they are frozen
+    # Rolls and prints dice unfrozen dice or just prints frozen dice
     for die in game_dice:
         if die.number in saved_dice_numbers:
             print(die)
