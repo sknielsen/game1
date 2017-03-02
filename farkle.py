@@ -113,7 +113,7 @@ def begin_game():
                  Two sets of Three of a Kind = 2,500
 
          Now let's play! How many players are there? """))
-    # Sets list with name players with numbers 1 to players
+
     players = range(1, (players + 1))
     return players
 
@@ -161,14 +161,13 @@ def rolling():
             if roll_again_answer.lower() == 'n':
                 return
 
-def player_turn(players):
+def game_play(players):
     # Cycles through each player and prompts them for their score at the end of each turn
     still_playing = True
-    # Initiate empty dictionary called scores to keep players scores in
-    scores = {}
+    player_scores = {}
     # Initialize scores to 0 for each player
     for player in players:
-        scores[player] = 0
+        player_scores[player] = 0
     while still_playing:
         for player in players:
             os.system('clear')
@@ -180,14 +179,14 @@ def player_turn(players):
             rolling()
             turn_score = int(raw_input('What was your score for this turn? '))
             # Adds players score from that round to running total
-            scores[player] += turn_score
+            player_scores[player] += turn_score
             # Game ends if a player reachs 10000 points
-            if scores[player] >= 10000:
+            if player_scores[player] >= 10000:
                 still_playing = False
                 print 'Player number %i wins!!!' % (player)
 
 def main():
-    player_turn(begin_game())
+    game_play(begin_game())
 
 if __name__ == '__main__':
     main()
