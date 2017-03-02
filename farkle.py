@@ -176,7 +176,7 @@ def game_play(players):
             clear_screen()
             unfreeze_dice()
             try:
-                input = raw_input("It is player number {0}'s turn! Hit any key to roll! ".format(player))
+                input = raw_input("It is player number {0}'s turn! Press Enter to roll! ".format(player))
             except:
                 pass
             rolling()
