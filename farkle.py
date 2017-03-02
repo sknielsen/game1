@@ -1,7 +1,7 @@
 import random
 import os
 
-class Die(object):
+class Die:
     # Creates die class with roll, freeze and unfreeze methods
 
     def __init__(self, number, sides=6):
@@ -12,42 +12,42 @@ class Die(object):
             ________            
            /\       \           
           /  \   ()  \          
-     %s.  /    \_______\         
+    {0}.   /    \_______\         
          \    /       /         
           \  /       /          
            \/_______/           """, 2: """
             ________            
            /\ ()    \           
           /  \     ()\          
-     %s.  /    \_______\         
+    {0}.   /    \_______\         
          \    /       /         
           \  /       /          
            \/_______/           """, 3: """
             ________            
            /\ ()    \           
           /  \   ()  \          
-     %s.  /    \_____()\         
+    {0}.   /    \_____()\         
          \    /       /         
           \  /       /          
            \/_______/           """, 4: """
             ________            
            /\ () () \           
           /  \       \          
-     %s.  /    \_()_()_\         
+    {0}.   /    \_()_()_\         
          \    /       /         
           \  /       /          
            \/_______/           """, 5: """
             ________            
            /\ () () \           
           /  \   ()  \          
-     %s.  /    \_()_()_\         
+    {0}.   /    \_()_()_\         
          \    /       /         
           \  /       /          
            \/_______/           """, 6: """
             ________            
            /\ () () \           
           /  \ () () \          
-     %s.  /    \_()_()_\         
+    {0}.   /    \_()_()_\         
          \    /       /         
           \  /       /          
            \/_______/           """}
@@ -65,9 +65,9 @@ class Die(object):
 
     def __str__(self):
         if self._frozen:
-            return "Kept " + self._value_to_str[self.value] % self.number
+            return 'Kept ' + self._value_to_str[self.value].format(self.number)
         else:
-            return self._value_to_str[self.value] % self.number
+            return self._value_to_str[self.value].format(self.number)
 
 # Initialize six dice
 die1 = Die(1)
@@ -144,7 +144,7 @@ def rolling():
         elif kept_dice.lower() == 'all':
             unfreeze_dice()
             saved_dice_numbers = []
-            roll_again_answer = raw_input("would you like to continue rolling? [y/n] ")
+            roll_again_answer = raw_input('would you like to continue rolling? [y/n] ')
             if roll_again_answer.lower() == 'n':
                 return
         else:
@@ -157,7 +157,7 @@ def rolling():
             else:
                 for die_number in saved_dice_numbers:
                     rolling_dice[die_number - 1].freeze()
-            roll_again_answer = raw_input("would you like to continue rolling? [y/n] ")
+            roll_again_answer = raw_input('would you like to continue rolling? [y/n] ')
             if roll_again_answer.lower() == 'n':
                 return
 
@@ -174,7 +174,7 @@ def player_turn(players):
             os.system('clear')
             unfreeze_dice()
             try:
-                input = raw_input("It is player number %i's turn! Hit any key to roll! " % (player))
+                input = raw_input("It is player number {0}'s turn! Hit any key to roll! ".format(player))
             except:
                 pass
             rolling()
