@@ -79,9 +79,12 @@ die5 = Die(5)
 die6 = Die(6)
 game_dice = [die1, die2, die3, die4, die5, die6]
 
-def begin_game():
-    # Clears the screen and prints welcome message and prompts for number of users
+def clear_screen():
     os.system('clear')
+
+def begin_game():
+    # Prints welcome message and prompts for number of users
+    clear_screen()
     players = int(raw_input("""
         Hello and welcome to Farkle! 
         The goal of this game is to reach 10,000 points. 
@@ -135,7 +138,7 @@ def rolling():
     # Continues rolling dice as long as player wants to keep rolling and asks which dice to freeze
     saved_dice_numbers = []
     while True:
-        os.system('clear')
+        clear_screen()
         dice_roll(saved_dice_numbers)
         kept_dice = raw_input("Which number dice would you like to keep? (ie '1 3 4', 'all' or 'none') ")
         if kept_dice.lower() == 'none':
@@ -170,7 +173,7 @@ def game_play(players):
         player_scores[player] = 0
     while still_playing:
         for player in players:
-            os.system('clear')
+            clear_screen()
             unfreeze_dice()
             try:
                 input = raw_input("It is player number {0}'s turn! Hit any key to roll! ".format(player))
