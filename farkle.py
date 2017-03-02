@@ -53,14 +53,15 @@ class Die:
            \/_______/           """}
 
     def roll(self):
-        # Assignes die random number from 1 to 6
+        # Assigns die random number from 1 to 6
         self.value = random.randint(1, self.sides)
 
     def freeze(self):
-        # Freezes die so it won't roll
+        # Adds a freeze attribute to the die so it is not rolled
         self._frozen = True
 
     def unfreeze(self):
+        # Turns off the freeze attribute so the die will be rolled
         self._frozen = False
 
     def __str__(self):
@@ -76,8 +77,7 @@ die3 = Die(3)
 die4 = Die(4)
 die5 = Die(5)
 die6 = Die(6)
-# List of the dice
-rolling_dice = [die1, die2, die3, die4, die5, die6]
+game_dice = [die1, die2, die3, die4, die5, die6]
 
 def begin_game():
     # Clears the screen and prints welcome message and prompts for number of users
@@ -119,7 +119,7 @@ def begin_game():
 
 def dice_roll(saved_dice_numbers):
     # Rolls and prints dice or just prints dice of they are frozen
-    for die in rolling_dice:
+    for die in game_dice:
         if die.number in saved_dice_numbers:
             print(die)
         else:
@@ -128,7 +128,7 @@ def dice_roll(saved_dice_numbers):
 
 def unfreeze_dice():
     # unfreezes all dice
-    for die in rolling_dice:
+    for die in game_dice:
         die.unfreeze()
 
 def rolling():
@@ -156,7 +156,7 @@ def rolling():
                 saved_dice_numbers = []
             else:
                 for die_number in saved_dice_numbers:
-                    rolling_dice[die_number - 1].freeze()
+                    game_dice[die_number - 1].freeze()
             roll_again_answer = raw_input('would you like to continue rolling? [y/n] ')
             if roll_again_answer.lower() == 'n':
                 return
