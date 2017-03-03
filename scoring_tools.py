@@ -19,8 +19,8 @@ def n_of_a_kind(n, value_counts):
             return True
 
 def score_of_1s(value_counts):
-    if value_counts[1] == 1 or value_counts[1] == 2:
-        if value_count[1] == 1:
+    if 1 in value_counts and (value_counts[1] == 1 or value_counts[1] == 2):
+        if value_counts[1] == 1:
             score = 100
         else:
             score = 200
@@ -29,8 +29,8 @@ def score_of_1s(value_counts):
     return score
 
 def score_of_5s(value_counts):
-    if value_counts[5] == 1 or value_counts[5] == 2:
-        if value_count[5] == 1:
+    if 5 in value_counts and (value_counts[5] == 1 or value_counts[5] == 2):
+        if value_counts[5] == 1:
             score = 50
         else:
             score = 100
