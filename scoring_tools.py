@@ -1,8 +1,11 @@
 import random
 
 dice_values = []
-for number in range(6):
-    dice_values.append(random.randint(1, 7))
+dice_input = raw_input("Set of dice separated by commas: ")
+dice_values = map(int, dice_input.replace(" ", "").split(','))
+
+# for number in range(6):
+#     dice_values.append(random.randint(1, 7))
 
 def create_value_count_dict(dice_values):
     value_counts = {}
@@ -61,10 +64,10 @@ def three_of_a_kind(value_counts):
             score = 400
             return score
         elif three_of_a_kind_values== [5]:
-            score = 400
+            score = 500
             return score
         elif three_of_a_kind_values== [6]:
-            score = 300
+            score = 600
             return score
 
 def four_of_a_kind(value_counts):
@@ -95,12 +98,12 @@ def calculate_score(dice_values):
     # Check for five of a kind
     elif n_of_a_kind(5, value_counts):
         score = 2000
-        score += score_of_1s() + score_of_5s()
+        score += score_of_1s(value_counts) + score_of_5s(value_counts)
         return score
     elif four_of_a_kind(value_counts):
         score = four_of_a_kind(value_counts)
         if score == 1000:
-            score += score_of_1s() + score_of_5s()
+            score += score_of_1s(value_counts) + score_of_5s(value_counts)
         return score
     elif three_of_a_kind(value_counts):
         score = three_of_a_kind(value_counts)
