@@ -1,5 +1,4 @@
-import random
-import os
+import random, os, scoring_tools
 
 class Die:
     # Creates die class with roll, freeze and unfreeze methods
@@ -121,7 +120,7 @@ def begin_game():
     return players
 
 def dice_roll(saved_dice_numbers):
-    # Rolls and prints dice unfrozen dice or just prints frozen dice
+    # Rolls and prints unfrozen dice or just prints frozen dice
     for die in game_dice:
         if die.number in saved_dice_numbers:
             print(die)
