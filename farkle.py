@@ -166,7 +166,7 @@ def rolling():
                 return
 
 def game_play(players):
-    # Cycles through each player and prompts them for their score at the end of each turn
+    # Cycles through each player
     still_playing = True
     player_scores = {}
     # Initialize scores to 0 for each player
@@ -174,16 +174,15 @@ def game_play(players):
         player_scores[player] = 0
     while still_playing:
         for player in players:
-            clear_screen()
             unfreeze_dice()
             try:
                 input = raw_input("It is player number {0}'s turn! Press Enter to roll! ".format(player))
             except:
                 pass
             rolling()
-            turn_score = int(raw_input('What was your score for this turn? '))
+            #turn_score = int(raw_input('What was your score for this turn? '))
             # Adds players score from that round to running total
-            player_scores[player] += turn_score
+            #player_scores[player] += turn_score
             # Game ends if a player reachs 10000 points
             if player_scores[player] >= 10000:
                 still_playing = False
