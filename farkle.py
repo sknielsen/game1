@@ -133,27 +133,29 @@ def unfreeze_dice():
     for die in game_dice:
         die.unfreeze()
 
+def keep_dice():
+    # Prompts for which dice to keep and returns answer
+    kept_dice = raw_input("Which number dice would you like to keep? (ie '1 3 4', 'all' or 'none') ")
+    if kept_dice.lower() == 'none':
+        return False
+    elif kept_dice.lower() == 'all':
+        return [1, 2, 3, 4, 5, 6]
+    else:
+        return map(int, kept_dice.split())
+
 def rolling():
-    # Continues rolling dice as long as player wants to keep rolling and asks which dice to freeze
+    # Continues rolling dice as long as player wants to keep rolling
     saved_dice_numbers = []
     while True:
         clear_screen()
         dice_roll(saved_dice_numbers)
-        kept_dice = raw_input("Which number dice would you like to keep? (ie '1 3 4', 'all' or 'none') ")
-        if kept_dice.lower() == 'none':
+        kept_dice = keep_dice()
+        if not kept_dice:
             print('FARKLE!')
             return
-        elif kept_dice.lower() == 'all':
-            unfreeze_dice()
-            saved_dice_numbers = []
-            roll_again_answer = raw_input('would you like to continue rolling? [y/n] ')
-            if roll_again_answer.lower() == 'n':
-                return
         else:
-            # Adds the numbers of the dice the player chose to keep to the list saved_dice_numbers
-            saved_dice_numbers.extend(map(int, kept_dice.split()))
-            # If all the dice are saved then they all unfreeze
-            if sorted(saved_dice_numbers) == [1, 2, 3, 4, 5, 6]:
+            saved_dice_numbers.extend(kept_dice)
+            if sorted(list(set(saved_dice_numbers))) == [1, 2, 3, 4, 5, 6]:
                 unfreeze_dice()
                 saved_dice_numbers = []
             else:
