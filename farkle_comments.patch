@@ -1,0 +1,104 @@
+diff --git a/farkle.py b/farkle.py
+index 9797a2a..4450248 100644
+--- a/farkle.py
++++ b/farkle.py
+@@ -1,6 +1,35 @@
+ import random
+ import os
+ 
++# COMMENT(ajy): general comments
++#
++# Nice work! This is majorly cool.  There are a ton of python language/general programming features that you're using
++# here and I can see clear improvements over the previous python work you've done.  That being said, I'm not going to
++# let you off easy.  I've got some general comments here, and then some more specific comments sprinkled throughout.
++# Please call me out on things where I'm being too specific on how you should solve a problem, refactor something, etc.
++# If I do that, you're not going to learn that much.  My goal is to point you in the right direction of best practices,
++# good design, etc., and have you try things out/explore on your own, research various topics, and ask good questions.
++# Along those lines, please question everything I tell you, to keep me honest, and to make sure I'm telling you the
++# "why" and not just the "how".
++#
++# Python 3
++# - I'm starting to use Python 3 for various things, and there are some differences and better practices as compared to
++# Python 2.  I'm going to try to push Python 3 stuff on you so that you're not stepping into too much tech debt by using
++# Python 2.
++#
++#
++# Comments
++# - I've added some specific comments throughout...on your comments.  Take a good look at all your comment lines (not
++# just the ones I've commented on) and see if you can make improvements (reword them or, better yet, adjust the code in
++# a way that makes what is being done so clear that you don't need the comment).
++
+ class Die(object):
+     # Creates die class with roll, freeze and unfreeze methods
+ 
+@@ -53,17 +82,28 @@ class Die(object):
+            \/_______/           """}
+ 
+     def roll(self):
+         # Assignes die random number from 1 to 6
+         self.value = random.randint(1, self.sides)
+ 
+     def freeze(self):
+         # Freezes die so it won't roll
+         self._frozen = True
+ 
+     def unfreeze(self):
+         self._frozen = False
+ 
+     def __str__(self):
++        # COMMENT(ajy): this just feels a little off - having the string output depend on an attribute
+         if self._frozen:
+             return "Kept " + self._value_to_str[self.value] % self.number
+         else:
+@@ -76,10 +116,24 @@ die3 = Die(3)
+ die4 = Die(4)
+ die5 = Die(5)
+ die6 = Die(6)
+ # List of the dice
++# COMMENT(ajy): do you think there is a name other than "rolling_dice" that could be more descriptive? These are
++# essentially the game dice, right? Also, there are a few functions/actions floating around which modify the rolling
++# dice, maybe consider making a RollingDice (or GameDice) class?
+ rolling_dice = [die1, die2, die3, die4, die5, die6]
+ 
+ def begin_game():
++    # COMMENT(ajy): a decent indicator of a refactoring opportunity is when your function description is "does this
++    # *and* this *and* ...".  Maybe consider decoupling some things here?
+     # Clears the screen and prints welcome message and prompts for number of users
+     os.system('clear')
+     players = int(raw_input("""
+@@ -113,6 +167,8 @@ def begin_game():
+                  Two sets of Three of a Kind = 2,500
+ 
+          Now let's play! How many players are there? """))
+     # Sets list with name players with numbers 1 to players
+     players = range(1, (players + 1))
+     return players
+@@ -126,6 +182,8 @@ def dice_roll(saved_dice_numbers):
+             die.roll()
+             print(die)
+ 
++# COMMENT(ajy): think about how you would write a test for this function.  Are there any changes you would make to the
++# function to make it easier to test?
+ def unfreeze_dice():
+     # unfreezes all dice
+     for die in rolling_dice:
+@@ -161,9 +219,12 @@ def rolling():
+             if roll_again_answer.lower() == 'n':
+                 return
+ 
+ def player_turn(players):
+     # Cycles through each player and prompts them for their score at the end of each turn
+     still_playing = True
+     # Initiate empty dictionary called scores to keep players scores in
+     scores = {}
+     # Initialize scores to 0 for each player
+@@ -171,9 +232,13 @@ def player_turn(players):
+         scores[player] = 0
+     while still_playing:
+         for player in players:
+             os.system('clear')
+             unfreeze_dice()
+             try:
+                 input = raw_input("It is player number %i's turn! Hit any key to roll! " % (player))
+             except:
+                 pass
