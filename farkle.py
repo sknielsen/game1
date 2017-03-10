@@ -179,7 +179,7 @@ def rolling():
             else:
                 for die_number in saved_dice_numbers:
                     game_dice[die_number - 1].freeze()
-            roll_again_answer = raw_input('would you like to continue rolling? [y/n] ')
+            roll_again_answer = raw_input('You score so far this turn is {0}. Would you like to continue rolling? [y/n] '.format(turn_score))
             if roll_again_answer.lower() == 'n':
                 return turn_score
 
@@ -204,7 +204,7 @@ def game_play(players):
             # Game ends if a player reachs 10000 points
             if player_scores[player] >= 10000:
                 still_playing = False
-                print 'Player number %i wins!!!' % (player)
+                print('Player number {0} wins!!!'.format(player))
 
 def main():
     game_play(begin_game())
