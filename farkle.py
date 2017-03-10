@@ -160,14 +160,18 @@ def get_dice_values(kept_dice):
 def rolling():
     # Continues rolling dice as long as player wants to keep rolling
     saved_dice_numbers = []
+    turn_score = 0
     while True:
         clear_screen()
         dice_roll(saved_dice_numbers)
         kept_dice = keep_dice(saved_dice_numbers)
         if not kept_dice:
             print('FARKLE!')
-            return
+            turn_score = 0
+            return turn_score
         else:
+            dice_values = get_dice_values(kept_dice)
+            turn_score += scoring_tools.calculate_score(dice_values)
             saved_dice_numbers.extend(kept_dice)
             if sorted(saved_dice_numbers) == [1, 2, 3, 4, 5, 6]:
                 unfreeze_dice()
@@ -177,7 +181,7 @@ def rolling():
                     game_dice[die_number - 1].freeze()
             roll_again_answer = raw_input('would you like to continue rolling? [y/n] ')
             if roll_again_answer.lower() == 'n':
-                return
+                return turn_score
 
 def game_play(players):
     # Cycles through each player
@@ -193,10 +197,10 @@ def game_play(players):
                 input = raw_input("It is player number {0}'s turn! Press Enter to roll! ".format(player))
             except:
                 pass
-            rolling()
-            #turn_score = int(raw_input('What was your score for this turn? '))
+            turn_score = rolling()
             # Adds players score from that round to running total
-            #player_scores[player] += turn_score
+            player_scores[player] += turn_score
+            print('Your score for that turn was {0} and your total score is {1}'.format(turn_score, player_scores[player]))
             # Game ends if a player reachs 10000 points
             if player_scores[player] >= 10000:
                 still_playing = False
