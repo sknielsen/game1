@@ -149,6 +149,14 @@ def keep_dice(saved_dice_numbers):
         kept_dice = map(int, kept_dice.split())
         return kept_dice
 
+def get_dice_values(kept_dice):
+    # Return a list of the values of the saved dice
+    dice_values = []
+    for die in game_dice:
+        if die.number in kept_dice:
+            dice_values.append(die.value)
+    return dice_values
+
 def rolling():
     # Continues rolling dice as long as player wants to keep rolling
     saved_dice_numbers = []
